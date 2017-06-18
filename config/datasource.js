@@ -4,7 +4,6 @@ import path from 'path';
 
 let database = null;
 
-
 const loadModels = (sequelize) => {
     const dir = path.join(__dirname, '../models');
     let models = [];
