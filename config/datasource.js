@@ -16,7 +16,6 @@ const loadModels = (sequelize) => {
     return models;
 };
 
-
 export default (app) => {
     if (!database) {
         const config = app.config,
@@ -33,12 +32,12 @@ export default (app) => {
         };
 
         database.models = loadModels(sequelize);
-        
+
         sequelize
             .sync()
-            .done() => {
+            .done(() => {
                 return database;
-            };
+            });
     }
 
     return database;
