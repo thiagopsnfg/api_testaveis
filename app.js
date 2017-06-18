@@ -1,7 +1,7 @@
 import express from 'express';
-import config from './config/config';
-import datasource from './config/datasource';
 import bodyParser from 'body-parser';
+import datasource from './config/datasource';
+import config from './config/config';
 
 const app = express();
 
@@ -14,36 +14,35 @@ const Books = app.datasource.models.Books;
 
 app.route('/books')
    .get((req, res) => {
-        Books
+     Books
             .findAll({})
             .then(result => res.json(result))
-            .catch(err => res.status(412))
-    })
+            .catch(() => res.status(412));
+   })
     .post((req, res) => {
-        Books.create(req.body)
+      Books.create(req.body)
             .then(result => res.json(result))
-            .catch(err => res.status(412));
+            .catch(() => res.status(412));
     });
 
 app.route('/books/:id')
     .get((req, res) => {
-        Books
+      Books
             .findOne({
-                where: req.params
+              where: req.params,
             })
             .then(result => res.json(result))
-            .catch(err => res.status(412));
+            .catch(() => res.status(412));
     })
     .put((req, res) => {
-        Books.update(req.body, {where: req.params})
+      Books.update(req.body, { where: req.params })
         .then(result => res.json(result))
-        .catch(err => res.status(412));
+        .catch(() => res.status(412));
     })
     .delete((req, res) => {
-        Books.destroy({where:req.params})
-        .then(result => res.sendStatus(204))
-        .catch(err => res.status(412));
-
+      Books.destroy({ where: req.params })
+        .then(() => res.sendStatus(204))
+        .catch(() => res.status(412));
     });
 
 export default app;

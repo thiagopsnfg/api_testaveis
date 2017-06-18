@@ -1,16 +1,15 @@
 describe('Route Books', () => {
-
   const Books = app.datasource.models.Books;
 
   const defaultBook = {
     id: 1,
-    name: 'Default book'
+    name: 'Default book',
   };
 
-  beforeEach(done => {
+  beforeEach((done) => {
     Books
       .destroy({
-        where: {}
+        where: {},
       })
       .then(() => Books.create(defaultBook))
       .then(() => {
@@ -19,13 +18,10 @@ describe('Route Books', () => {
   });
 
   describe('Route GET /books', () => {
-
-    it('should return a list of books', done => {
-
+    it('should return a list of books', (done) => {
       request
         .get('/books')
         .end((err, res) => {
-
           expect(res.body[0].id).to.be.eql(defaultBook.id);
           expect(res.body[0].name).to.be.eql(defaultBook.name);
 
@@ -35,13 +31,10 @@ describe('Route Books', () => {
   });
 
   describe('Route GET /books/{id}', () => {
-
-    it('should return a book by ID', done => {
-
+    it('should return a book by ID', (done) => {
       request
         .get('/books/1')
         .end((err, res) => {
-
           expect(res.body.id).to.be.eql(defaultBook.id);
           expect(res.body.name).to.be.eql(defaultBook.name);
 
@@ -51,19 +44,16 @@ describe('Route Books', () => {
   });
 
   describe('Route POST /books', () => {
-
-    it('should Create a book', done => {
-
+    it('should Create a book', (done) => {
       const newBook = {
         id: 2,
-        name: 'newBook'
+        name: 'newBook',
       };
 
       request
         .post('/books')
         .send(newBook)
         .end((err, res) => {
-
           expect(res.body.id).to.be.eql(newBook.id);
           expect(res.body.name).to.be.eql(newBook.name);
 
@@ -73,13 +63,11 @@ describe('Route Books', () => {
   });
 
 
-describe('Route PUT /books/{id}', () => {
-
-    it('should Update a book', done => {
-
+  describe('Route PUT /books/{id}', () => {
+    it('should Update a book', (done) => {
       const updatedBook = {
         id: 1,
-        name: 'updatedBook'
+        name: 'updatedBook',
       };
 
       request
@@ -95,19 +83,15 @@ describe('Route PUT /books/{id}', () => {
   });
 
 
-describe('Route DELETE /books/{id}', () => {
-
-    it('should Delete a book', done => {
-
+  describe('Route DELETE /books/{id}', () => {
+    it('should Delete a book', (done) => {
       request
         .delete('/books/1')
         .end((err, res) => {
-          
           expect(res.statusCode).to.be.eql(204);
 
           done(err);
         });
     });
   });
-
 });
