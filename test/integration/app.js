@@ -50,7 +50,7 @@ describe('Route Books', () => {
     });
   });
 
-   describe('Route POST /books', () => {
+  describe('Route POST /books', () => {
 
     it('should Create a book', done => {
 
@@ -64,8 +64,46 @@ describe('Route Books', () => {
         .send(newBook)
         .end((err, res) => {
 
-          expect(res.body.id).to.be.eql(defaultBook.id);
-          expect(res.body.name).to.be.eql(defaultBook.name);
+          expect(res.body.id).to.be.eql(newBook.id);
+          expect(res.body.name).to.be.eql(newBook.name);
+
+          done(err);
+        });
+    });
+  });
+
+
+describe('Route PUT /books/{id}', () => {
+
+    it('should Update a book', done => {
+
+      const updatedBook = {
+        id: 1,
+        name: 'updatedBook'
+      };
+
+      request
+        .put('/books/1')
+        .send(updatedBook)
+        .end((err, res) => {
+          // console.log('RESPONSE', res.body);
+          expect(res.body).to.be.eql([1]);
+
+          done(err);
+        });
+    });
+  });
+
+
+describe('Route DELETE /books/{id}', () => {
+
+    it('should Delete a book', done => {
+
+      request
+        .delete('/books/1')
+        .end((err, res) => {
+          
+          expect(res.statusCode).to.be.eql(204);
 
           done(err);
         });
